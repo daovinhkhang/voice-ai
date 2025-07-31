@@ -6,19 +6,18 @@ Hệ thống AI nói chuyện realtime tiếng Việt với luồng STT → LLM 
 
 - **STT (Speech-to-Text)**: Sử dụng OpenAI Whisper API để chuyển đổi giọng nói thành text tiếng Việt
 - **LLM (Language Model)**: Sử dụng OpenAI GPT-3.5 Turbo để xử lý và phản hồi thông minh
-- **TTS (Text-to-Speech)**: Sử dụng model zalopay/vietnamese-tts để tạo giọng nói tiếng Việt tự nhiên
+- **TTS (Text-to-Speech)**: Sử dụng Google TTS để tạo giọng nói tiếng Việt tự nhiên
 - **Real-time Processing**: Xử lý audio real-time với Voice Activity Detection
-- **Multiple Interfaces**: CLI, Web, và Demo modes
+- **Web Interface**: Giao diện web đẹp mắt với continuous listening
 - **Easy Setup**: Cài đặt và sử dụng đơn giản
 
 ## 🚀 Cài đặt
 
 ### Yêu cầu hệ thống
 - **Python**: 3.8+ (khuyến nghị 3.9+)
-- **RAM**: Tối thiểu 4GB (khuyến nghị 8GB+)
-- **GPU**: Không bắt buộc nhưng sẽ tăng tốc TTS
+- **RAM**: Tối thiểu 2GB (khuyến nghị 4GB+)
 - **Microphone & Speaker**: Cho voice chat
-- **Internet**: Cho OpenAI API và model downloads
+- **Internet**: Cho OpenAI API và Google TTS
 
 ### 1. Clone repository
 ```bash
@@ -56,9 +55,6 @@ nano .env  # hoặc mở bằng editor yêu thích
 # OpenAI API (bắt buộc)
 OPENAI_API_KEY=your_openai_api_key_here
 
-# Hugging Face Token (cho TTS models)
-HUGGINGFACE_TOKEN=your_huggingface_token_here
-
 # Audio settings
 SAMPLE_RATE=16000
 CHUNK_SIZE=1024
@@ -67,7 +63,6 @@ CHANNELS=1
 # Model settings
 STT_MODEL=whisper-1
 LLM_MODEL=gpt-3.5-turbo
-TTS_MODEL=zalopay/vietnamese-tts
 
 # Performance settings
 MAX_AUDIO_LENGTH=30
@@ -86,68 +81,28 @@ python test_requirements.py
 ## 🎯 Sử dụng
 
 ### Chạy hệ thống
-
-#### CLI Mode (Terminal)
-```bash
-python main.py
-```
-
-#### Web Mode (Browser)
-```bash
-python app.py
-```
-
-#### Real-time Web Mode (Continuous listening)
 ```bash
 python app_realtime.py
 ```
 
-#### Demo Mode (Text-based)
-```bash
-python demo.py
-```
-
 ### Hướng dẫn sử dụng
-
-#### CLI Mode
-1. Chạy `python main.py`
-2. Đợi thông báo "🎤 Listening..."
-3. Nói tiếng Việt vào microphone
-4. Hệ thống sẽ tự động xử lý STT → LLM → TTS
-5. Nói "thoát" hoặc "exit" để kết thúc
-
-#### Web Mode
-1. Chạy `python app.py`
+1. Chạy `python app_realtime.py`
 2. Mở browser tại `http://localhost:8080`
-3. Click nút microphone để bắt đầu
+3. Click nút microphone để bắt đầu continuous listening
 4. Nói tiếng Việt và đợi phản hồi
-5. Hệ thống sẽ phát audio phản hồi
+5. Hệ thống sẽ tự động xử lý STT → LLM → TTS
 
 ## 🏗️ Cấu trúc dự án
 
 ```
 voice-ai/
-├── src/
-│   ├── stt/                 # Speech-to-Text module
-│   │   └── whisper_stt.py
-│   ├── llm/                 # Language Model module
-│   │   └── gpt_llm.py
-│   ├── tts/                 # Text-to-Speech module
-│   │   └── vietnamese_tts.py
-│   ├── audio/               # Audio handling
-│   │   └── audio_handler.py
-│   ├── utils/               # Utilities
-│   │   └── config.py
-│   └── voice_chat.py        # Main application
+├── app_realtime.py          # Main application (real-time web)
+├── sync_simple.py           # STT/LLM/TTS components
+├── config.py                # Configuration
 ├── static/                  # Web assets
 │   ├── css/
 │   └── js/
 ├── templates/               # HTML templates
-├── main.py                  # CLI entry point
-├── app.py                   # Web application
-├── app_realtime.py          # Real-time web app
-├── demo.py                  # Demo script
-├── sync_simple.py           # Synchronous wrappers
 ├── requirements.txt         # Dependencies
 ├── test_requirements.py     # Dependency checker
 ├── install.sh               # Installation script
@@ -159,17 +114,10 @@ voice-ai/
 ### Core Dependencies
 - **Flask**: Web framework
 - **OpenAI**: API client cho STT và LLM
-- **SoundFile/SoundDevice**: Audio processing
+- **SoundFile**: Audio processing
 - **NumPy**: Numerical computing
 - **PyDub**: Audio conversion
-- **gTTS**: Google Text-to-Speech (fallback)
-
-### Advanced Dependencies
-- **PyTorch**: Machine learning framework
-- **Transformers**: Hugging Face models
-- **F5-TTS**: Vietnamese TTS model
-- **Librosa**: Audio analysis
-- **WebRTC VAD**: Voice Activity Detection
+- **gTTS**: Google Text-to-Speech
 
 ## 🔧 Troubleshooting
 
@@ -188,19 +136,10 @@ python --version  # Should be 3.8+
 ### Lỗi audio device
 ```bash
 # Kiểm tra audio devices
-python -c "import sounddevice as sd; print(sd.query_devices())"
+python -c "import soundfile as sf; print('Audio libraries working')"
 
-# Test microphone
-python -c "import sounddevice as sd; print(sd.default.device)"
-```
-
-### Lỗi TTS model
-```bash
-# Clear cache
-rm -rf ~/.cache/huggingface/
-
-# Reinstall TTS dependencies
-pip install --force-reinstall f5-tts cached-path
+# Test microphone (browser-based)
+# Check browser console for errors
 ```
 
 ### Lỗi OpenAI API
@@ -212,18 +151,9 @@ echo $OPENAI_API_KEY
 python -c "import openai; print(openai.Model.list())"
 ```
 
-### Lỗi memory
-```bash
-# Giảm batch size
-export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128
-
-# Sử dụng CPU only
-export CUDA_VISIBLE_DEVICES=""
-```
-
 ## 📝 Ghi chú
 
-- **Lần đầu chạy**: Có thể mất thời gian để tải TTS models (~1-2GB)
+- **Lần đầu chạy**: Có thể mất thời gian để tải TTS models
 - **Audio quality**: Phụ thuộc vào microphone và môi trường
 - **API costs**: OpenAI API có phí sử dụng
 - **Internet**: Cần kết nối ổn định cho API calls
@@ -233,7 +163,7 @@ export CUDA_VISIBLE_DEVICES=""
 ```bash
 # Enable debug logging
 export DEBUG=True
-python app.py
+python app_realtime.py
 
 # Check logs
 tail -f server.log

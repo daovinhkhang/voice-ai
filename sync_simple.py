@@ -10,10 +10,7 @@ import logging
 import tempfile
 import io
 
-# Add src directory to Python path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
-
-from src.utils.config import config
+from config import config
 import openai
 from openai import OpenAI
 import soundfile as sf

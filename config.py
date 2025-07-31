@@ -33,9 +33,7 @@ class Config:
         """Validate required configuration"""
         if not cls.OPENAI_API_KEY:
             raise ValueError("OPENAI_API_KEY is required")
-        if not cls.HUGGINGFACE_TOKEN:
-            raise ValueError("HUGGINGFACE_TOKEN is required")
         return True
 
 # Global config instance
-config = Config()
+config = Config() 
