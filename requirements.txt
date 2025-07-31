@@ -1,25 +1,44 @@
-# Vietnamese Voice Chat - Minimal Requirements
-# Size: ~268MB (down from 1.2GB)
+# Vietnamese AI Voice Chat System - Requirements
+# Complete dependencies for STT → LLM → TTS pipeline
 
 # Core web framework
-flask>=2.0.0
-flask-cors>=3.0.0
+flask>=2.3.0
+flask-cors>=4.0.0
 
 # OpenAI API
 openai>=1.0.0
 
 # Environment variables
-python-dotenv>=0.19.0
+python-dotenv>=1.0.0
 
-# Audio processing
+# Audio processing core
 soundfile>=0.12.0
+sounddevice>=0.4.6
 numpy>=1.21.0
+
+# Audio conversion and processing
 pydub>=0.25.0
 librosa>=0.9.0
 
 # Text-to-Speech
 gtts>=2.3.0
 
+# Vietnamese TTS models
+huggingface-hub>=0.16.0
+cached-path>=1.1.0
+f5-tts>=0.1.0
+
+# Machine Learning
+torch>=1.13.0
+transformers>=4.20.0
+
 # Utilities
-requests>=2.25.0
-urllib3>=1.26.0 
+requests>=2.28.0
+urllib3>=1.26.0
+
+# Optional: For better audio processing
+webrtcvad>=2.0.10
+
+# Additional audio dependencies
+scipy>=1.9.0
+scikit-learn>=1.1.0 

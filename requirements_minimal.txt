@@ -1,0 +1,27 @@
+# Vietnamese AI Voice Chat System - Minimal Requirements
+# For basic functionality (CLI mode with fallback TTS)
+
+# Core web framework
+flask>=2.3.0
+flask-cors>=4.0.0
+
+# OpenAI API
+openai>=1.0.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Audio processing core
+soundfile>=0.12.0
+sounddevice>=0.4.6
+numpy>=1.21.0
+
+# Audio conversion
+pydub>=0.25.0
+
+# Text-to-Speech (fallback)
+gtts>=2.3.0
+
+# Utilities
+requests>=2.28.0
+urllib3>=1.26.0 
