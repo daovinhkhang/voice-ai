@@ -38,15 +38,8 @@ venv\Scripts\activate     # Windows
 ```
 
 ### 3. Cài đặt dependencies
-
-#### Option A: Cài đặt đầy đủ (khuyến nghị)
 ```bash
 pip install -r requirements.txt
-```
-
-#### Option B: Cài đặt tối thiểu (chỉ chức năng cơ bản)
-```bash
-pip install -r requirements_minimal.txt
 ```
 
 ### 4. Cấu hình API keys
@@ -155,8 +148,7 @@ voice-ai/
 ├── app_realtime.py          # Real-time web app
 ├── demo.py                  # Demo script
 ├── sync_simple.py           # Synchronous wrappers
-├── requirements.txt         # Full dependencies
-├── requirements_minimal.txt # Minimal dependencies
+├── requirements.txt         # Dependencies
 ├── test_requirements.py     # Dependency checker
 ├── install.sh               # Installation script
 └── README.md               # Documentation
