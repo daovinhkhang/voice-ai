@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇻🇳 Vietnamese AI Voice Chat - Ultra Minimalist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/realtime.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Ultra Minimalist Voice Button -->
+        <div class="voice-controls">
+            <button id="recordBtn" class="record-btn" disabled>
+                <div class="processing-ring"></div>
+                <i class="fas fa-microphone"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p id="loadingText">Đang xử lý...</p>
+        </div>
+    </div>
+
+    <!-- Hidden elements for functionality -->
+    <div style="display: none;">
+        <div id="chatContainer"></div>
+        <input type="text" id="textInput">
+        <button id="sendBtn"></button>
+        <audio id="audioPlayer"></audio>
+        <div id="status"></div>
+        <div id="statusIndicator"></div>
+        <div id="statusText"></div>
+        <div id="recordingIndicator"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/realtime.js') }}"></script>
+</body>
+</html>

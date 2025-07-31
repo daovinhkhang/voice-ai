@@ -1,0 +1,475 @@
+/* Vietnamese AI Voice Chat - Ultra Minimalist Futuristic Theme */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #000000;
+    --bg-secondary: #0a0a0a;
+    --accent-neon: #00ffff;
+    --accent-purple: #8a2be2;
+    --accent-pink: #ff0080;
+    --accent-gold: #ffd700;
+    --text-primary: #ffffff;
+    --glow-neon: rgba(0, 255, 255, 0.6);
+    --glow-purple: rgba(138, 43, 226, 0.6);
+    --glow-pink: rgba(255, 0, 128, 0.6);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Cosmic background with animated stars */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(2px 2px at 160px 30px, #ddd, transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    animation: stars 20s linear infinite;
+    z-index: -2;
+}
+
+@keyframes stars {
+    from { transform: translateY(0px); }
+    to { transform: translateY(-100px); }
+}
+
+/* Nebula effect */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 128, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(0, 255, 255, 0.1) 0%, transparent 50%);
+    z-index: -1;
+    animation: nebula 15s ease-in-out infinite;
+}
+
+@keyframes nebula {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Ultra Minimalist Voice Button */
+.voice-controls {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.record-btn {
+    width: 200px;
+    height: 200px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+/* Outer ring - always visible */
+.record-btn::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--accent-neon), var(--accent-purple), var(--accent-pink)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Inner glow */
+.record-btn::after {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    50% { 
+        transform: scale(1.1);
+        opacity: 0.6;
+    }
+}
+
+/* Center icon */
+.record-btn i {
+    font-size: 3rem;
+    color: var(--accent-neon);
+    z-index: 10;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 20px var(--glow-neon);
+}
+
+/* Hover effects */
+.record-btn:hover {
+    transform: scale(1.05);
+}
+
+.record-btn:hover i {
+    transform: scale(1.2);
+    color: var(--accent-gold);
+    text-shadow: 0 0 30px var(--accent-gold);
+}
+
+/* Continuous listening state */
+.record-btn.continuous {
+    animation: continuousGlow 3s ease-in-out infinite;
+}
+
+.record-btn.continuous::before {
+    animation: rotate 2s linear infinite;
+    border-width: 4px;
+}
+
+.record-btn.continuous::after {
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, transparent 70%);
+    animation: continuousPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes continuousGlow {
+    0%, 100% { 
+        box-shadow: 
+            0 0 50px var(--glow-neon),
+            0 0 100px var(--glow-neon),
+            0 0 150px var(--glow-neon);
+    }
+    50% { 
+        box-shadow: 
+            0 0 80px var(--glow-neon),
+            0 0 150px var(--glow-neon),
+            0 0 200px var(--glow-neon);
+    }
+}
+
+@keyframes continuousPulse {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 0.4;
+    }
+    50% { 
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+/* Recording state */
+.record-btn.recording {
+    animation: recordingGlow 1s ease-in-out infinite;
+}
+
+.record-btn.recording::before {
+    animation: rotate 1s linear infinite;
+    border-width: 5px;
+    background: linear-gradient(45deg, var(--accent-pink), var(--accent-gold), var(--accent-neon)) border-box;
+}
+
+.record-btn.recording::after {
+    background: radial-gradient(circle, rgba(255, 0, 128, 0.3) 0%, transparent 70%);
+    animation: recordingPulse 0.8s ease-in-out infinite;
+}
+
+.record-btn.recording i {
+    color: var(--accent-pink);
+    text-shadow: 0 0 30px var(--glow-pink);
+    animation: iconPulse 0.8s ease-in-out infinite;
+}
+
+@keyframes recordingGlow {
+    0%, 100% { 
+        box-shadow: 
+            0 0 60px var(--glow-pink),
+            0 0 120px var(--glow-pink),
+            0 0 180px var(--glow-pink);
+    }
+    50% { 
+        box-shadow: 
+            0 0 100px var(--glow-pink),
+            0 0 180px var(--glow-pink),
+            0 0 250px var(--glow-pink);
+    }
+}
+
+@keyframes recordingPulse {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% { 
+        transform: scale(1.3);
+        opacity: 1;
+    }
+}
+
+@keyframes iconPulse {
+    0%, 100% { 
+        transform: scale(1);
+    }
+    50% { 
+        transform: scale(1.3);
+    }
+}
+
+/* Processing state */
+.record-btn.processing {
+    animation: processingGlow 1.5s ease-in-out infinite;
+}
+
+.record-btn.processing::before {
+    animation: processingRotate 2s linear infinite;
+    border-width: 6px;
+    background: linear-gradient(45deg, var(--accent-gold), var(--accent-neon), var(--accent-purple)) border-box;
+}
+
+.record-btn.processing::after {
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, transparent 70%);
+    animation: processingPulse 1.2s ease-in-out infinite;
+}
+
+/* Extra processing ring */
+.record-btn.processing .processing-ring {
+    content: '';
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    border: 2px solid var(--accent-gold);
+    border-radius: 50%;
+    animation: processingRingRotate 3s linear infinite reverse;
+    opacity: 0.6;
+    top: -10%;
+    left: -10%;
+}
+
+/* Processing icon ring effect */
+.record-btn.processing i::before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--accent-gold);
+    border-radius: 50%;
+    animation: iconRingRotate 1.5s linear infinite;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.8;
+}
+
+.record-btn.processing i::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 1px solid var(--accent-gold);
+    border-radius: 50%;
+    animation: iconRingRotate 2s linear infinite reverse;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+}
+
+.record-btn.processing i {
+    color: var(--accent-gold);
+    text-shadow: 0 0 35px var(--accent-gold);
+    animation: processingIconPulse 1.2s ease-in-out infinite;
+    z-index: 10;
+    position: relative;
+}
+
+@keyframes processingGlow {
+    0%, 100% { 
+        box-shadow: 
+            0 0 70px var(--accent-gold),
+            0 0 140px var(--accent-gold),
+            0 0 210px var(--accent-gold);
+    }
+    50% { 
+        box-shadow: 
+            0 0 120px var(--accent-gold),
+            0 0 200px var(--accent-gold),
+            0 0 280px var(--accent-gold);
+    }
+}
+
+@keyframes processingPulse {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    50% { 
+        transform: scale(1.4);
+        opacity: 1;
+    }
+}
+
+@keyframes processingRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes processingRingRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+@keyframes iconRingRotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes processingIconPulse {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg);
+    }
+    25% { 
+        transform: scale(1.2) rotate(90deg);
+    }
+    50% { 
+        transform: scale(1.4) rotate(180deg);
+    }
+    75% { 
+        transform: scale(1.2) rotate(270deg);
+    }
+}
+
+/* Disabled state */
+.record-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    animation: none;
+}
+
+.record-btn:disabled::before {
+    animation: none;
+}
+
+.record-btn:disabled::after {
+    animation: none;
+}
+
+/* Hide all other elements */
+.header, .main, .chat-container, .text-input-container, .footer, .recording-indicator {
+    display: none !important;
+}
+
+/* Loading overlay - minimal */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loading-overlay.show {
+    display: flex;
+}
+
+.loading-spinner {
+    text-align: center;
+    color: var(--accent-neon);
+}
+
+.spinner {
+    width: 80px;
+    height: 80px;
+    border: 4px solid transparent;
+    border-top: 4px solid var(--accent-neon);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 2rem;
+    box-shadow: 0 0 30px var(--glow-neon);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .record-btn {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .record-btn i {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .record-btn {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .record-btn i {
+        font-size: 2rem;
+    }
+} 

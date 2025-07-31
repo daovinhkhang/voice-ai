@@ -1,0 +1,359 @@
+/* Vietnamese AI Voice Chat - Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header p {
+    color: #666;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.status-indicator {
+    font-size: 1.2em;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Main Content */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Chat Container */
+.chat-container {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+    overflow-y: auto;
+    min-height: 300px;
+}
+
+.message {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    margin-left: auto;
+    text-align: right;
+}
+
+.ai-message {
+    background: #f8f9fa;
+    color: #333;
+    border-left: 4px solid #667eea;
+}
+
+.error-message {
+    background: #ffebee;
+    color: #c62828;
+    border-left: 4px solid #f44336;
+}
+
+.message-content strong {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.message-content ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.message-content li {
+    margin: 5px 0;
+}
+
+/* Voice Controls */
+.voice-controls {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.record-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.record-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.record-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Continuous mode styles */
+.record-btn.continuous {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    animation: continuousPulse 2s infinite;
+}
+
+@keyframes continuousPulse {
+    0%, 100% { 
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+    }
+    50% { 
+        box-shadow: 0 8px 25px rgba(40, 167, 69, 0.6);
+    }
+}
+
+.record-btn.recording {
+    background: linear-gradient(45deg, #dc3545, #e74c3c);
+    animation: recordPulse 1s infinite;
+}
+
+@keyframes recordPulse {
+    0%, 100% { 
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+    }
+    50% { 
+        box-shadow: 0 8px 25px rgba(220, 53, 69, 0.6);
+    }
+}
+
+.record-btn i {
+    font-size: 1.2em;
+}
+
+.recording-indicator {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.recording-indicator.show {
+    display: flex;
+}
+
+.pulse {
+    width: 12px;
+    height: 12px;
+    background: #dc3545;
+    border-radius: 50%;
+    animation: pulse 1s infinite;
+}
+
+/* Text Input */
+.text-input-container {
+    margin-top: 20px;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    padding: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#textInput {
+    flex: 1;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 20px;
+    font-size: 1em;
+    outline: none;
+    background: transparent;
+}
+
+#textInput:focus {
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+}
+
+#textInput:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#sendBtn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#sendBtn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+#sendBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tech-stack {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.tech-stack span {
+    background: rgba(102, 126, 234, 0.1);
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loading-overlay.show {
+    display: flex;
+}
+
+.loading-spinner {
+    text-align: center;
+    color: white;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header h1 {
+        font-size: 2em;
+    }
+    
+    .tech-stack {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .record-btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+    
+    .message {
+        max-width: 90%;
+    }
+}
