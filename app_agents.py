@@ -22,6 +22,9 @@ from agents.booking_agent import BookingAgent
 # Import sync components
 from sync_simple import PureSyncSTT, PureSyncLLM, PureSyncTTS
 
+# Import config
+from config import config
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
