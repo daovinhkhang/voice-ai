@@ -55,6 +55,7 @@ Thumbs.db
 *.log
 logs/
 server.log
+system_monitor.log
 
 # Audio files
 *.wav
@@ -62,6 +63,12 @@ server.log
 *.webm
 *.mp4
 test_audio.wav
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+booking_system.db
 
 # Temporary files
 temp/
