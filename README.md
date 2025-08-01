@@ -1,23 +1,36 @@
-# 🇻🇳 Vietnamese AI Voice Chat System
+# 🤖 Vietnamese AI Voice Chat System with Business Agents
 
-Hệ thống AI nói chuyện realtime tiếng Việt với luồng STT → LLM → TTS mạnh mẽ và nhanh chóng.
+Hệ thống AI Voice Chat tiếng Việt tích hợp 2 agent chuyên biệt cho doanh nghiệp:
+- **Knowledge Base Agent**: Tư vấn dựa trên tài liệu (PDF, DOCX, TXT, MD)
+- **Booking Agent**: Quản lý lịch hẹn, khách hàng và gửi email tự động
 
-## ✨ Tính năng
+## ✨ Tính năng chính
 
-- **STT (Speech-to-Text)**: Sử dụng OpenAI Whisper API để chuyển đổi giọng nói thành text tiếng Việt
-- **LLM (Language Model)**: Sử dụng OpenAI GPT-3.5 Turbo để xử lý và phản hồi thông minh
-- **TTS (Text-to-Speech)**: Sử dụng Google TTS để tạo giọng nói tiếng Việt tự nhiên
-- **Real-time Processing**: Xử lý audio real-time với Voice Activity Detection
-- **Web Interface**: Giao diện web đẹp mắt với continuous listening
-- **Easy Setup**: Cài đặt và sử dụng đơn giản
+### 🎤 Voice Chat với Agent Routing
+- **Speech-to-Text**: Chuyển đổi giọng nói tiếng Việt thành văn bản
+- **Agent Routing**: Tự động chuyển hướng đến agent phù hợp
+- **Text-to-Speech**: Chuyển đổi phản hồi thành giọng nói tiếng Việt
+- **Real-time Processing**: Xử lý âm thanh thời gian thực
+
+### 📚 Knowledge Base Agent
+- **Document Upload**: Hỗ trợ PDF, DOCX, TXT, MD
+- **RAG System**: Retrieval-Augmented Generation với ChromaDB
+- **Vietnamese Q&A**: Tư vấn dựa trên nội dung tài liệu
+- **Document Summary**: Tóm tắt thông tin tài liệu
+
+### 📅 Booking Agent
+- **Customer Management**: Quản lý thông tin khách hàng
+- **Booking System**: Tạo và quản lý lịch hẹn
+- **Email Automation**: Gửi email xác nhận tự động
+- **Google Calendar**: Tích hợp với Google Calendar
+- **Data Export**: Xuất dữ liệu khách hàng
 
 ## 🚀 Cài đặt
 
 ### Yêu cầu hệ thống
-- **Python**: 3.8+ (khuyến nghị 3.9+)
-- **RAM**: Tối thiểu 2GB (khuyến nghị 4GB+)
-- **Microphone & Speaker**: Cho voice chat
-- **Internet**: Cho OpenAI API và Google TTS
+- Python 3.8+
+- FFmpeg (cho xử lý âm thanh)
+- Microphone (cho voice chat)
 
 ### 1. Clone repository
 ```bash
@@ -27,119 +40,155 @@ cd voice-ai
 
 ### 2. Tạo virtual environment
 ```bash
-# Tạo virtual environment
 python3 -m venv venv
-
-# Kích hoạt virtual environment
 source venv/bin/activate  # Linux/Mac
 # hoặc
-venv\Scripts\activate     # Windows
+venv\Scripts\activate  # Windows
 ```
 
 ### 3. Cài đặt dependencies
 ```bash
-pip install -r requirements.txt
+pip install -r requirements_agents.txt
 ```
 
 ### 4. Cấu hình API keys
+Tạo file `.env` từ `env_example.txt`:
 ```bash
-# Copy template
-cp .env.template .env
-
-# Chỉnh sửa file .env với API keys của bạn
-nano .env  # hoặc mở bằng editor yêu thích
+cp env_example.txt .env
 ```
 
-**Nội dung file .env:**
+Cập nhật các giá trị trong `.env`:
 ```env
-# OpenAI API (bắt buộc)
+# OpenAI API
 OPENAI_API_KEY=your_openai_api_key_here
 
-# Audio settings
-SAMPLE_RATE=16000
-CHUNK_SIZE=1024
-CHANNELS=1
-
-# Model settings
-STT_MODEL=whisper-1
-LLM_MODEL=gpt-3.5-turbo
-
-# Performance settings
-MAX_AUDIO_LENGTH=30
-RESPONSE_TIMEOUT=10
-
-# Web server settings
-PORT=8080
-DEBUG=False
+# Email (cho Booking Agent)
+SMTP_USERNAME=your_email@gmail.com
+SMTP_PASSWORD=your_app_password_here
 ```
 
-### 5. Kiểm tra cài đặt
+### 5. Chạy hệ thống
 ```bash
-python test_requirements.py
+python app_agents.py
 ```
 
-## 🎯 Sử dụng
+Truy cập: http://localhost:8080
 
-### Chạy hệ thống
+## 📖 Hướng dẫn sử dụng
+
+### Voice Chat
+1. **Bắt đầu**: Nhấn "Start Recording" và nói bằng tiếng Việt
+2. **Agent Routing**: 
+   - Nói "tài liệu" hoặc "document" → Knowledge Base Agent
+   - Nói "booking" hoặc "lịch hẹn" → Booking Agent
+   - Các câu khác → General AI Chat
+
+### Knowledge Base Agent
+1. **Upload tài liệu**: Chọn file PDF/DOCX/TXT/MD và upload
+2. **Đặt câu hỏi**: Gõ câu hỏi về nội dung tài liệu
+3. **Nhận tư vấn**: AI trả lời dựa trên nội dung tài liệu
+
+### Booking Agent
+1. **Thêm khách hàng**: Điền thông tin khách hàng
+2. **Tạo booking**: Chọn khách hàng, dịch vụ, thời gian
+3. **Xác nhận**: Hệ thống gửi email xác nhận tự động
+4. **Quản lý**: Xem danh sách khách hàng và booking
+
+## 🔧 API Endpoints
+
+### Voice Chat
+- `POST /api/voice-chat` - Voice chat với agent routing
+
+### Knowledge Base
+- `POST /api/upload-document` - Upload tài liệu
+- `POST /api/knowledge/query` - Đặt câu hỏi
+- `GET /api/knowledge/summary` - Tóm tắt knowledge base
+
+### Booking Management
+- `GET /api/customers` - Lấy danh sách khách hàng
+- `POST /api/customers` - Thêm khách hàng
+- `GET /api/bookings` - Lấy danh sách booking
+- `POST /api/bookings` - Tạo booking
+- `POST /api/bookings/{id}/confirm` - Xác nhận booking
+- `POST /api/export/customers` - Xuất dữ liệu khách hàng
+
+### System
+- `GET /api/health` - Kiểm tra trạng thái hệ thống
+- `GET /api/audio/{id}` - Lấy file âm thanh
+
+## 🏗️ Kiến trúc hệ thống
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Voice Input   │───▶│   STT Engine    │───▶│  Agent Router   │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+                                                       │
+                                                       ▼
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   TTS Engine    │◀───│  Response Gen   │◀───│  Agent System   │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+                                                       │
+                                                       ▼
+                                       ┌─────────────────┐
+                                       │  Knowledge Base │
+                                       │     Agent       │
+                                       └─────────────────┘
+                                       │  Booking Agent  │
+                                       └─────────────────┘
+```
+
+## 📁 Cấu trúc project
+
+```
+voice_new/
+├── app_agents.py              # Main application với agents
+├── sync_simple.py             # Core AI components
+├── config.py                  # Configuration
+├── requirements_agents.txt    # Dependencies cho agents
+├── env_example.txt           # Environment variables template
+├── agents/
+│   ├── knowledge_agent.py    # Knowledge Base Agent
+│   └── booking_agent.py      # Booking Agent
+├── templates/
+│   └── index.html            # Web interface
+├── knowledge_base/           # Vector database
+├── uploads/                  # Uploaded files
+└── booking_system.db         # SQLite database
+```
+
+## 🔧 Cấu hình nâng cao
+
+### Email Configuration
+Để sử dụng tính năng gửi email:
+1. Tạo App Password cho Gmail
+2. Cập nhật SMTP settings trong `.env`
+
+### Google Calendar Integration
+1. Tạo Google Cloud Project
+2. Enable Calendar API
+3. Download `credentials.json`
+4. Chạy setup lần đầu để authorize
+
+### Database
+- Mặc định: SQLite
+- Có thể thay đổi sang PostgreSQL/MySQL trong config
+
+## 🐛 Troubleshooting
+
+### Lỗi âm thanh
 ```bash
-python app_realtime.py
-```
+# Kiểm tra FFmpeg
+ffmpeg -version
 
-### Hướng dẫn sử dụng
-1. Chạy `python app_realtime.py`
-2. Mở browser tại `http://localhost:8080`
-3. Click nút microphone để bắt đầu continuous listening
-4. Nói tiếng Việt và đợi phản hồi
-5. Hệ thống sẽ tự động xử lý STT → LLM → TTS
+# Cài đặt FFmpeg
+# Ubuntu/Debian
+sudo apt install ffmpeg
 
-## 🏗️ Cấu trúc dự án
+# macOS
+brew install ffmpeg
 
-```
-voice-ai/
-├── app_realtime.py          # Main application (real-time web)
-├── sync_simple.py           # STT/LLM/TTS components
-├── config.py                # Configuration
-├── static/                  # Web assets
-│   ├── css/
-│   └── js/
-├── templates/               # HTML templates
-├── requirements.txt         # Dependencies
-├── test_requirements.py     # Dependency checker
-├── install.sh               # Installation script
-└── README.md               # Documentation
-```
-
-## 📦 Dependencies
-
-### Core Dependencies
-- **Flask**: Web framework
-- **OpenAI**: API client cho STT và LLM
-- **SoundFile**: Audio processing
-- **NumPy**: Numerical computing
-- **PyDub**: Audio conversion
-- **gTTS**: Google Text-to-Speech
-
-## 🔧 Troubleshooting
-
-### Lỗi cài đặt dependencies
-```bash
-# Upgrade pip
-pip install --upgrade pip
-
-# Install with verbose output
-pip install -r requirements.txt -v
-
-# Check Python version
-python --version  # Should be 3.8+
-```
-
-### Lỗi audio device
-```bash
-# Kiểm tra audio devices
-python -c "import soundfile as sf; print('Audio libraries working')"
-
-# Test microphone (browser-based)
-# Check browser console for errors
+# Windows
+# Download từ https://ffmpeg.org/
 ```
 
 ### Lỗi OpenAI API
@@ -147,31 +196,69 @@ python -c "import soundfile as sf; print('Audio libraries working')"
 # Kiểm tra API key
 echo $OPENAI_API_KEY
 
-# Test API connection
-python -c "import openai; print(openai.Model.list())"
+# Test API
+curl -H "Authorization: Bearer $OPENAI_API_KEY" \
+     https://api.openai.com/v1/models
 ```
 
-## 📝 Ghi chú
-
-- **Lần đầu chạy**: Có thể mất thời gian để tải TTS models
-- **Audio quality**: Phụ thuộc vào microphone và môi trường
-- **API costs**: OpenAI API có phí sử dụng
-- **Internet**: Cần kết nối ổn định cho API calls
-
-## 🐛 Debug Mode
-
+### Lỗi dependencies
 ```bash
-# Enable debug logging
-export DEBUG=True
-python app_realtime.py
+# Cài đặt lại dependencies
+pip install --upgrade -r requirements_agents.txt
 
-# Check logs
-tail -f server.log
+# Kiểm tra Python version
+python --version
 ```
 
-## 📄 License
+### Lỗi database
+```bash
+# Xóa database cũ
+rm booking_system.db
 
-MIT License - xem file [LICENSE](LICENSE) để biết thêm chi tiết.
+# Restart application
+python app_agents.py
+```
+
+## 📊 Performance
+
+### Tối ưu hóa
+- **Vector Database**: ChromaDB cho RAG
+- **Audio Processing**: FFmpeg cho conversion
+- **Caching**: Temporary file caching
+- **Async Processing**: Background initialization
+
+### Monitoring
+- Health check endpoint
+- Logging system
+- Error handling
+- Performance metrics
+
+## 🔒 Security
+
+### Best Practices
+- Environment variables cho sensitive data
+- File upload validation
+- SQL injection prevention
+- CORS configuration
+- Rate limiting (có thể thêm)
+
+## 🚀 Deployment
+
+### Local Development
+```bash
+python app_agents.py
+```
+
+### Production
+```bash
+# Sử dụng Gunicorn
+pip install gunicorn
+gunicorn -w 4 -b 0.0.0.0:8080 app_agents:app
+
+# Hoặc Docker
+docker build -t voice-ai .
+docker run -p 8080:8080 voice-ai
+```
 
 ## 🤝 Contributing
 
@@ -181,13 +268,36 @@ MIT License - xem file [LICENSE](LICENSE) để biết thêm chi tiết.
 4. Push to branch
 5. Tạo Pull Request
 
+## 📄 License
+
+MIT License - xem file [LICENSE](LICENSE)
+
 ## 📞 Support
 
-Nếu gặp vấn đề, hãy:
-1. Kiểm tra [Troubleshooting](#troubleshooting)
-2. Chạy `python test_requirements.py`
-3. Tạo issue trên GitHub
+- **Issues**: [GitHub Issues](https://github.com/daovinhkhang/voice-ai/issues)
+- **Email**: [Your Email]
+- **Documentation**: [Wiki](https://github.com/daovinhkhang/voice-ai/wiki)
+
+## 🔮 Roadmap
+
+### Phase 1: Core Agents ✅
+- [x] Knowledge Base Agent
+- [x] Booking Agent
+- [x] Voice Interface
+- [x] Web UI
+
+### Phase 2: Advanced Features
+- [ ] Multi-language support
+- [ ] Advanced analytics
+- [ ] Mobile app
+- [ ] API documentation
+
+### Phase 3: Enterprise
+- [ ] Multi-tenant support
+- [ ] Advanced security
+- [ ] Cloud deployment
+- [ ] Integration APIs
 
 ---
 
-**Made with ❤️ for Vietnamese AI community**
+**Made with ❤️ for Vietnamese businesses**

@@ -27,6 +27,23 @@ class Config:
     MAX_AUDIO_LENGTH = int(os.getenv('MAX_AUDIO_LENGTH', 30))
     RESPONSE_TIMEOUT = int(os.getenv('RESPONSE_TIMEOUT', 10))
     
+    # Web Server settings
+    PORT = int(os.getenv('PORT', 8080))
+    DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+    
+    # Email settings (for Booking Agent)
+    SMTP_SERVER = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
+    SMTP_PORT = int(os.getenv('SMTP_PORT', 587))
+    SMTP_USERNAME = os.getenv('SMTP_USERNAME')
+    SMTP_PASSWORD = os.getenv('SMTP_PASSWORD')
+    
+    # Database settings
+    DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///booking_system.db')
+    
+    # File storage settings
+    UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', 'uploads')
+    MAX_FILE_SIZE = int(os.getenv('MAX_FILE_SIZE', 10 * 1024 * 1024))  # 10MB
+    
     # Validation
     @classmethod
     def validate(cls):
