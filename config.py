@@ -31,11 +31,11 @@ class Config:
     PORT = int(os.getenv('PORT', 8080))
     DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
     
-    # Email settings (for Booking Agent)
+    # Email settings (for Booking Agent) - Default Gmail settings
     SMTP_SERVER = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
     SMTP_PORT = int(os.getenv('SMTP_PORT', 587))
-    SMTP_USERNAME = os.getenv('SMTP_USERNAME')
-    SMTP_PASSWORD = os.getenv('SMTP_PASSWORD')
+    SMTP_USERNAME = os.getenv('SMTP_USERNAME', 'daovinhkhang0834@gmail.com')
+    SMTP_PASSWORD = os.getenv('SMTP_PASSWORD', 'uftt xnbv wphb oqsh')
     
     # Database settings
     DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///booking_system.db')

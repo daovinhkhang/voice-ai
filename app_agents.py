@@ -443,6 +443,20 @@ def export_customers():
         logger.error(f"Error exporting customers: {e}")
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/test-email', methods=['POST'])
+def test_email():
+    """Test email configuration"""
+    try:
+        data = request.get_json()
+        to_email = data.get('email', 'daovinhkhang0834@gmail.com')
+        
+        result = booking_agent.send_test_email(to_email)
+        return jsonify(result)
+        
+    except Exception as e:
+        logger.error(f"Error testing email: {e}")
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/api/audio/<audio_id>')
 def serve_audio(audio_id):
     """Serve generated audio files"""

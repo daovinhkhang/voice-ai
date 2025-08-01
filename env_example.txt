@@ -19,11 +19,11 @@ RESPONSE_TIMEOUT=10
 PORT=8080
 DEBUG=False
 
-# Email Configuration (for Booking Agent)
+# Email Configuration (for Booking Agent) - Gmail Settings
 SMTP_SERVER=smtp.gmail.com
 SMTP_PORT=587
-SMTP_USERNAME=your_email@gmail.com
-SMTP_PASSWORD=your_app_password_here
+SMTP_USERNAME=daovinhkhang0834@gmail.com
+SMTP_PASSWORD=uftt xnbv wphb oqsh
 
 # Database Configuration
 DATABASE_URL=sqlite:///booking_system.db

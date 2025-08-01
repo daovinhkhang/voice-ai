@@ -412,6 +412,13 @@
                     </div>
 
                     <div>
+                        <h3>Email Test</h3>
+                        <input type="email" id="testEmail" placeholder="Email to test" value="daovinhkhang0834@gmail.com">
+                        <button id="testEmailBtn" class="btn btn-primary">Test Email</button>
+                        <div id="emailTestResult"></div>
+                    </div>
+
+                    <div>
                         <h3>Customer List</h3>
                         <button id="refreshCustomersBtn" class="btn btn-secondary">Refresh</button>
                         <div id="customersList">Loading...</div>
@@ -685,6 +692,7 @@
         document.getElementById('createBookingBtn').addEventListener('click', createBooking);
         document.getElementById('refreshCustomersBtn').addEventListener('click', loadCustomers);
         document.getElementById('refreshBookingsBtn').addEventListener('click', loadBookings);
+        document.getElementById('testEmailBtn').addEventListener('click', testEmail);
 
         async function addCustomer() {
             const name = document.getElementById('customerName').value.trim();
@@ -867,6 +875,37 @@
             document.getElementById('bookingDate').value = '';
             document.getElementById('duration').value = '60';
             document.getElementById('bookingNotes').value = '';
+        }
+
+        async function testEmail() {
+            const email = document.getElementById('testEmail').value.trim();
+            
+            if (!email) {
+                alert('Please enter an email address');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/test-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+
+                const data = await response.json();
+                
+                const resultDiv = document.getElementById('emailTestResult');
+                if (data.success) {
+                    resultDiv.innerHTML = `<div class="alert alert-success">✅ ${data.message} (${data.method})</div>`;
+                } else {
+                    resultDiv.innerHTML = `<div class="alert alert-error">❌ ${data.message}</div>`;
+                }
+            } catch (error) {
+                console.error('Test email error:', error);
+                document.getElementById('emailTestResult').innerHTML = '<div class="alert alert-error">❌ Failed to test email</div>';
+            }
         }
     </script>
 </body>
